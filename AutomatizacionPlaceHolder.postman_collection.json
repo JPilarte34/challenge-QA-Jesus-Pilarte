@@ -1,0 +1,807 @@
+{
+	"info": {
+		"_postman_id": "f24de5d1-9cfd-40a3-a341-41d380f2086b",
+		"name": "AutomatizacionPlaceHolder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14764669"
+	},
+	"item": [
+		{
+			"name": "EndPoint Posts",
+			"item": [
+				{
+					"name": "Crear Registro correctamente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al estatus 201 del endpoint posts\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder del endpoint posts\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuesta exitosa del Post del endpoint posts\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"title\": \"Jesus Pilarte\",\r\n    \"body\": \"Esto es una prueb\",\r\n    \"userId\": \"110\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Registro con el EndPoint Incorrecto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al estatus 404 del endpoint posts\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder endpoint posts\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json; charset=UTF-8",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"title\": \"Jesus Pilarte\",\r\n    \"body\": \"Esto es una prueb\",\r\n    \"userId\": \"110\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/postsJP",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"postsJP"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar el registro numero 10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta incluye el titulo\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"optio molestias id quia eum\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts?id=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar un registro inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta del EndPoint Posts esta vacio\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts?id=675",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "675"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar registo 40",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta incluye el titul = Jesus Pilarte\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Jesus Pilarte\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Jesus Pilarte\",\r\n    \"body\": \"Esto es una prueba\",\r\n    \"userId\": \"110\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/40",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar registo con los campos del body y el endpoint errados",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name1\": \"Jesus A Pilarte\",\r\n        \"email1\": \"jesuspilarte@prueba.com\",\r\n        \"body1\": \"Esto es una prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/comments/3300",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments",
+								"3300"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EndPoint comments",
+			"item": [
+				{
+					"name": "Consultar el registro No. 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta del EndPoint comments incluye el Email = Nikita@garfield.biz\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Nikita@garfield.biz\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/comments?id=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar un registro inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta del EndPoint comments esta vacio\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/comments?id=7414",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "7414"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear registro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al EndPoint comments estatus 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder el EndPoint comments\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuesta exitosa del Post EndPoint comments\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"postId\": 1,\r\n        \"id\": 500,\r\n        \"name\": \"jesus Pilarte\",\r\n        \"email\": \"JesusPilarte@prueba.com\",\r\n        \"body\": \"Esto Solo en una prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear registro con EndPoint incorrecto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al estatus 404 del EndPoint Commnets\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder del EndPoint Commnets\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"postIddf\": 1,\r\n        \"idsdf\": 500,\r\n        \"namesdf\": \"jesus Pilarte\",\r\n        \"emailsdf\": \"JesusPilarte@prueba.com\",\r\n        \"body\": \"Esto Solo en una prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/commentsJP",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"commentsJP"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Registro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200 del endpoint comments\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta incluye el correo = Prueba@prueba.com\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Prueba@prueba.com\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"postId\": 1,\r\n        \"id\": 50,\r\n        \"name\": \"Jesus Pilarte\",\r\n        \"email\": \"Prueba@prueba.com\",\r\n        \"body\": \"Prueba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/comments/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Registro con campos y Endpoint incorrectos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 500 del endpoint comments\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"postIdasd\": 1,\r\n        \"idfg\": 50,\r\n        \"namesdf\": \"Jesus Pilarte\",\r\n        \"email\": \"Prueba@prueba.com\",\r\n        \"body\": \"Prueba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/comments/38024",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"comments",
+								"38024"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EndPoint albums",
+			"item": [
+				{
+					"name": "Consultar el registro No. 7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta del EndPoint Albums incluye el titulo = quibusdam autem aliquid et et quia\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"quibusdam autem aliquid et et quia\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/albums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar un registro inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta del EndPoint albums esta vacio\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/albums?id=638",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "638"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "creacion de registro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al EndPoint albums estatus 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder el EndPoint albums\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuesta exitosa del Post EndPoint albums\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"id\": 570,\r\n        \"title\": \"Esto es una Prueba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/albums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "creacion de registro Con EndPoint y bady Incorrecto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El sistema respondio correctamente al estatus 404 del EndPoint albums\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El servicio tomo menos de 200 milesimas para responder del EndPoint albums\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userIdcv\": 1,\r\n        \"idsdf\": 570,\r\n        \"titlesdf\": \"Esto es una Prueba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/albumsJP",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albumsJP"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar registro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 200 del endpoint albums\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"El cuerpo de la respuesta incluye el titulo = Esto es una Preuba\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Esto es una Preuba\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"id\": 1,\r\n        \"title\": \"Esto es una Preuba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/albums/14",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar registro con body y EndPoint incorrectos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Estatus de la respuesta 500 del endpoint comments\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userIdsdcf\": 1,\r\n        \"idcsd\": 1,\r\n        \"titledsc\": \"Esto es una Preuba\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/albums/14175275",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"albums",
+								"14175275"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
